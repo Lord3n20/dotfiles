@@ -1,0 +1,13 @@
+#!/bin/sh
+
+WALL=$(shuf -e -n1 ~/.wallpaper/img/* | cut -b 27-64)
+WALLPAPER=$(cat ~/.wallpaper/curWall)
+while [ "$WALL" = "$WALLPAPER" ]; do
+    WALL=$(shuf -e -n1 ~/.wallpaper/img/* | cut -b 27-64)
+    echo $WALL
+done
+WALLPAPER=$WALL
+echo $WALL > ~/.wallpaper/curWall
+feh --no-fehbg --bg-fill ~/.wallpaper/img/$WALLPAPER
+xrdb -merge -I$HOME ~/.wallpaper/colors/$WALLPAPER.XC
+xdotool key Super_L+r
